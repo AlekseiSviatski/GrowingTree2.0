@@ -11,32 +11,106 @@ using System.Windows.Forms;
 
 namespace GrowingTree2._0
 {
-    public partial class Form1 : Form
+    public partial class fMain : Form
     {
 
-        Person Sviatski;
-        Person Artuhov;
-        Person Koshel;
-        Tree EnteredTree;
-        List<string> nameList = new List<string>();
-
-        public Form1()
+        public fMain()
         {
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void fMain_Load(object sender, EventArgs e)
         {
-            /////qweqwe1122
-            /////edsqsdas
-            ///5435
+            cbTreeNameAddToList();
+            personWateringSelect();
+        }
+
+        private void bAddNewTree_Click(object sender, EventArgs e)
+        {
+            AddTree();
+        }
+
+        private void cbTreeName_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cbTreeNameSelect();
+        }
+
+        private void bGrow_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+                if (rbSviatski.Checked)
+                {
+                    SviatskiWateringTree();
+                    cbTreeNameSelect();
+                    personWateringSelect();
+                }
+                else if (rbArtuhov.Checked)
+                {
+                    ArtuhovWateringTree();
+                    cbTreeNameSelect();
+                    personWateringSelect();
+                }
+                else if (rbKoshel.Checked)
+                {
+                    KoshelWateringTree();
+                    cbTreeNameSelect();
+                    personWateringSelect();
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Nicht Arbaiten!");
+            }
+
+        }
+
+        private void bWateringClear_Click(object sender, EventArgs e)
+        {
+            ClearWateringCount();
+            personWateringSelect();
+        }
+
+        // Methods
+        private void AddTree()
+        {
+            if (tbName.Text == "" || tbAge.Text == "" || tbTrunkLength.Text == "" || tbCrownVolume.Text == "") MessageBox.Show(Constants.fieldsWarning, Constants.warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            else
+            {
+                string procedureText = $"INSERT INTO EnteredTree(Name, Age, TrunkLength, CrownVolume) VALUES ('{tbName.Text}', {tbAge.Text}, {tbTrunkLength.Text}, {tbCrownVolume.Text})";
+                using (SqlConnection connect = new SqlConnection(Constants.connectionString))
+                {
+                    SqlCommand addTree = new SqlCommand(procedureText, connect);
+
+                    try
+                    {
+                        connect.Open();
+                        addTree.ExecuteNonQuery();
+                        MessageBox.Show($"Дерево {tbName.Text} добавлено.");
+                    }
+                    catch
+                    {
+                        MessageBox.Show(Constants.warningMessage, Constants.warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                    finally
+                    {
+                        connect.Close();
+                    }
+                }
+            }
+            cbTreeNameAddToList();
+        }
+
+        private void cbTreeNameAddToList()
+        {
+            List<string> nameList = new List<string>();
             using (SqlConnection connection = new SqlConnection(Constants.connectionString))
             {
                 try
                 {
                     connection.Open();
-                    string commandText = $@"select e.Name from EnteredTree e";
-                    SqlCommand command = new SqlCommand(commandText, connection);
+                    SqlCommand command = new SqlCommand($@"select e.Name from EnteredTree e", connection);
                     SqlDataReader reader = command.ExecuteReader();
 
                     if (reader.HasRows)
@@ -57,67 +131,29 @@ namespace GrowingTree2._0
                 {
                     connection.Close();
                 }
+                //cbTreeName.DataSource = null;
                 cbTreeName.DataSource = nameList;
             }
         }
 
-        private void bAddNewTree_Click(object sender, EventArgs e)
+        private void cbTreeNameSelect()
         {
-            if (tbName.Text == "" || tbAge.Text == "" || tbTrunkLength.Text == "" || tbCrownVolume.Text == "") MessageBox.Show(Constants.fieldsWarning, Constants.warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            else
-            {
-                EnteredTree = new Tree(tbName.Text, Convert.ToInt32(tbAge.Text), Convert.ToInt32(tbTrunkLength.Text), Convert.ToInt32(tbCrownVolume.Text));
-                nameList.Add(tbName.Text);
-                string procedureText = $"INSERT INTO EnteredTree(Name, Age, TrunkLength, CrownVolume) VALUES ('{tbName.Text}', {tbAge.Text}, {tbTrunkLength.Text}, {tbCrownVolume.Text})";
-                using (SqlConnection connect = new SqlConnection(Constants.connectionString))
-                {
-                    SqlCommand addTree = new SqlCommand(procedureText, connect);
-                    //SqlCommand clearWateringCountArtuhov = new SqlCommand(Constants.clearArtuhovWateringCount, connect);
-                    //SqlCommand clearWateringCountSviatski = new SqlCommand(Constants.clearSviatskiWateringCount, connect);
-                    //SqlCommand clearWateringCountKoshel = new SqlCommand(Constants.clearKoshelWateringCount, connect);
-
-                    try
-                    {
-                        connect.Open();
-                        addTree.ExecuteNonQuery();
-                        //clearWateringCountArtuhov.ExecuteNonQuery();
-                        //clearWateringCountSviatski.ExecuteNonQuery();
-                        //clearWateringCountKoshel.ExecuteNonQuery();
-                        MessageBox.Show($"Дерево {tbName.Text} добавлено.") ;
-                    }
-                    catch
-                    {
-                        MessageBox.Show(Constants.warningMessage, Constants.warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                    finally
-                    {
-                        connect.Close();
-                    }
-                }
-                //Sviatski.watering = 0;
-                //Artuhov.watering = 0;
-            }
-        }
-
-        private void cbTreeName_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
             List<int> dataList = new List<int>();
             using (SqlConnection connection = new SqlConnection(Constants.connectionString))
             {
                 try
                 {
                     connection.Open();
-                    string commandText1 = $@"select e.Age, e.TrunkLength, e.CrownVolume from EnteredTree e where e.Name = '{cbTreeName.SelectedItem}'";
-                    SqlCommand command1 = new SqlCommand(commandText1, connection);
-                    SqlDataReader reader1 = command1.ExecuteReader();
-                    if (reader1.HasRows)
+                    string commandText = $@"select e.Age, e.TrunkLength, e.CrownVolume from EnteredTree e where e.Name = '{cbTreeName.SelectedItem}'";
+                    SqlCommand command = new SqlCommand(commandText, connection);
+                    SqlDataReader reader = command.ExecuteReader();
+                    if (reader.HasRows)
                     {
-                        while (reader1.Read())
+                        while (reader.Read())
                         {
-                            for (int i = 0; i < reader1.FieldCount; i++)
+                            for (int i = 0; i < reader.FieldCount; i++)
                             {
-                                dataList.Add(reader1.GetInt32(i));
+                                dataList.Add(reader.GetInt32(i));
                             }
                         }
                     }
@@ -139,126 +175,139 @@ namespace GrowingTree2._0
             }
         }
 
-        private void bGrow_Click(object sender, EventArgs e)
+        private void ArtuhovWateringTree()
         {
-
-            try
+            using (SqlConnection connect = new SqlConnection(Constants.connectionString))
             {
-                if (rbSviatski.Checked)
-                {
-                    Sviatski.AddWateringCount();
-                    //SelectedTree.Grow();
-                    using (SqlConnection connect = new SqlConnection(Constants.connectionString))
-                    {
-                        SqlCommand updateTree = new SqlCommand(Constants.updateEnteredTree, connect);
-                        SqlCommand updatePersonWateringCount = new SqlCommand(Constants.updateSviatskiWateringCount, connect);
+                string updateEnteredTree = $"UPDATE EnteredTree SET Age = Age + 1, TrunkLength = TrunkLength + 2, CrownVolume = CrownVolume + 5 WHERE EnteredTree.Name = '{cbTreeName.Text}'";
+                SqlCommand updateTree = new SqlCommand(updateEnteredTree, connect);
+                SqlCommand updatePersonWateringCount = new SqlCommand(Constants.updateArtuhovWateringCount, connect);
 
-                        try
-                        {
-                            connect.Open();
-                            updateTree.ExecuteNonQuery();
-                            updatePersonWateringCount.ExecuteNonQuery();
-                        }
-                        catch
-                        {
-                            MessageBox.Show(Constants.warningMessage, Constants.warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        }
-                        finally
-                        {
-                            connect.Close();
-                        }
-                    }
+                try
+                {
+                    connect.Open();
+                    updateTree.ExecuteNonQuery();
+                    updatePersonWateringCount.ExecuteNonQuery();
                 }
-                else if (rbArtuhov.Checked)
+                catch
                 {
-                    Artuhov.AddWateringCount();
-                    //SelectedTree.Grow();
-                    using (SqlConnection connect = new SqlConnection(Constants.connectionString))
-                    {
-                        SqlCommand updateTree = new SqlCommand(Constants.updateEnteredTree, connect);
-                        SqlCommand updatePersonWateringCount = new SqlCommand(Constants.updateArtuhovWateringCount, connect);
-
-                        try
-                        {
-                            connect.Open();
-                            updateTree.ExecuteNonQuery();
-                            updatePersonWateringCount.ExecuteNonQuery();
-                        }
-                        catch
-                        {
-                            MessageBox.Show(Constants.warningMessage, Constants.warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        }
-                        finally
-                        {
-                            connect.Close();
-                        }
-                    }
+                    MessageBox.Show(Constants.warningMessage, Constants.warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
-                else if (rbKoshel.Checked)
+                finally
                 {
-                    Koshel.AddWateringCount();
-                    //SelectedTree.Grow();
-                    using (SqlConnection connect = new SqlConnection(Constants.connectionString))
-                    {
-                        SqlCommand updateTree = new SqlCommand(Constants.updateEnteredTree, connect);
-                        SqlCommand updatePersonWateringCount = new SqlCommand(Constants.updateKoshelWateringCount, connect);
-
-                        try
-                        {
-                            connect.Open();
-                            updateTree.ExecuteNonQuery();
-                            updatePersonWateringCount.ExecuteNonQuery();
-                        }
-                        catch
-                        {
-                            MessageBox.Show(Constants.warningMessage, Constants.warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        }
-                        finally
-                        {
-                            connect.Close();
-                        }
-                    }
+                    connect.Close();
                 }
             }
-            catch
-            {
-                MessageBox.Show("Nicht Arbaiten!");
-            }
-            
         }
 
-        private void bRefresh_Click(object sender, EventArgs e)
+        private void KoshelWateringTree()
         {
+            using (SqlConnection connect = new SqlConnection(Constants.connectionString))
+            {
+                string updateEnteredTree = $"UPDATE EnteredTree SET Age = Age + 1, TrunkLength = TrunkLength + 2, CrownVolume = CrownVolume + 5 WHERE EnteredTree.Name = '{cbTreeName.Text}'";
+                SqlCommand updateTree = new SqlCommand(updateEnteredTree, connect);
+                SqlCommand updatePersonWateringCount = new SqlCommand(Constants.updateKoshelWateringCount, connect);
+
+                try
+                {
+                    connect.Open();
+                    updateTree.ExecuteNonQuery();
+                    updatePersonWateringCount.ExecuteNonQuery();
+                }
+                catch
+                {
+                    MessageBox.Show(Constants.warningMessage, Constants.warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                finally
+                {
+                    connect.Close();
+                }
+            }
+        }
+
+        private void SviatskiWateringTree()
+        {
+            using (SqlConnection connect = new SqlConnection(Constants.connectionString))
+            {
+                string updateEnteredTree = $"UPDATE EnteredTree SET Age = Age + 1, TrunkLength = TrunkLength + 2, CrownVolume = CrownVolume + 5 WHERE EnteredTree.Name = '{cbTreeName.Text}'";
+                SqlCommand updateTree = new SqlCommand(updateEnteredTree, connect);
+                SqlCommand updatePersonWateringCount = new SqlCommand(Constants.updateSviatskiWateringCount, connect);
+
+                try
+                {
+                    connect.Open();
+                    updateTree.ExecuteNonQuery();
+                    updatePersonWateringCount.ExecuteNonQuery();
+                }
+                catch
+                {
+                    MessageBox.Show(Constants.warningMessage, Constants.warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                finally
+                {
+                    connect.Close();
+                }
+            }
+        }
+
+        private void personWateringSelect()
+        {
+            List<int> dataList = new List<int>();
             using (SqlConnection connection = new SqlConnection(Constants.connectionString))
             {
                 try
                 {
                     connection.Open();
-                    string commandText = $@"select e.Name from EnteredTree e";
+                    string commandText = "SELECT WateringCount FROM Persons order by IDPerson";
                     SqlCommand command = new SqlCommand(commandText, connection);
                     SqlDataReader reader = command.ExecuteReader();
-
                     if (reader.HasRows)
                     {
                         while (reader.Read())
                         {
-                            nameList.Add(reader.GetString(0));
+                            for (int i = 0; i < reader.FieldCount; i++)
+                            {
+                                dataList.Add(reader.GetInt32(i));
+                            }
                         }
                     }
                 }
                 catch (Exception)
                 {
 
-                    throw;
+                    MessageBox.Show("Error!");
                 }
                 finally
                 {
                     connection.Close();
                 }
-                cbTreeName.DataSource = nameList;
+                dgvPersonsInfo.Rows[0].Cells[0].Value = dataList[0];
+                dgvPersonsInfo.Rows[0].Cells[1].Value = dataList[2];
+                dgvPersonsInfo.Rows[0].Cells[2].Value = dataList[1];
             }
-            MessageBox.Show("Нихт арбаитен");
         }
 
+        private void ClearWateringCount()
+        {
+            using (SqlConnection connection = new SqlConnection(Constants.connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand("ClearWateringCount", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception)
+                {
+
+                    MessageBox.Show("Error!");
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
     }
 }
