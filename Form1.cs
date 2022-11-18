@@ -27,9 +27,7 @@ namespace GrowingTree2._0
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            /////qweqwe1122
-            /////edsqsdas
-            ///5435
+
             using (SqlConnection connection = new SqlConnection(Constants.connectionString))
             {
                 try
@@ -72,17 +70,12 @@ namespace GrowingTree2._0
                 using (SqlConnection connect = new SqlConnection(Constants.connectionString))
                 {
                     SqlCommand addTree = new SqlCommand(procedureText, connect);
-                    //SqlCommand clearWateringCountArtuhov = new SqlCommand(Constants.clearArtuhovWateringCount, connect);
-                    //SqlCommand clearWateringCountSviatski = new SqlCommand(Constants.clearSviatskiWateringCount, connect);
-                    //SqlCommand clearWateringCountKoshel = new SqlCommand(Constants.clearKoshelWateringCount, connect);
-
+                   
                     try
                     {
                         connect.Open();
                         addTree.ExecuteNonQuery();
-                        //clearWateringCountArtuhov.ExecuteNonQuery();
-                        //clearWateringCountSviatski.ExecuteNonQuery();
-                        //clearWateringCountKoshel.ExecuteNonQuery();
+
                         MessageBox.Show($"Дерево {tbName.Text} добавлено.") ;
                     }
                     catch
@@ -94,8 +87,7 @@ namespace GrowingTree2._0
                         connect.Close();
                     }
                 }
-                //Sviatski.watering = 0;
-                //Artuhov.watering = 0;
+
             }
         }
 
@@ -147,7 +139,7 @@ namespace GrowingTree2._0
                 if (rbSviatski.Checked)
                 {
                     Sviatski.AddWateringCount();
-                    //SelectedTree.Grow();
+
                     using (SqlConnection connect = new SqlConnection(Constants.connectionString))
                     {
                         SqlCommand updateTree = new SqlCommand(Constants.updateEnteredTree, connect);
@@ -172,7 +164,7 @@ namespace GrowingTree2._0
                 else if (rbArtuhov.Checked)
                 {
                     Artuhov.AddWateringCount();
-                    //SelectedTree.Grow();
+
                     using (SqlConnection connect = new SqlConnection(Constants.connectionString))
                     {
                         SqlCommand updateTree = new SqlCommand(Constants.updateEnteredTree, connect);
@@ -197,7 +189,7 @@ namespace GrowingTree2._0
                 else if (rbKoshel.Checked)
                 {
                     Koshel.AddWateringCount();
-                    //SelectedTree.Grow();
+
                     using (SqlConnection connect = new SqlConnection(Constants.connectionString))
                     {
                         SqlCommand updateTree = new SqlCommand(Constants.updateEnteredTree, connect);
