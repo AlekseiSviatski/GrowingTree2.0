@@ -171,14 +171,14 @@ namespace GrowingTree2._0
                 {
                     Artuhov.AddWateringCount();
                     //SelectedTree.Grow();
-                    using (SqlConnection connect1 = new SqlConnection(Constants.connectionString))
+                    using (SqlConnection connect = new SqlConnection(Constants.connectionString))
                     {
-                        SqlCommand updateTree = new SqlCommand(Constants.updateEnteredTree, connect1);
-                        SqlCommand updatePersonWateringCount = new SqlCommand(Constants.updateArtuhovWateringCount, connect1);
+                        SqlCommand updateTree = new SqlCommand(Constants.updateEnteredTree, connect);
+                        SqlCommand updatePersonWateringCount = new SqlCommand(Constants.updateArtuhovWateringCount, connect);
 
                         try
                         {
-                            connect1.Open();
+                            connect.Open();
                             updateTree.ExecuteNonQuery();
                             updatePersonWateringCount.ExecuteNonQuery();
                         }
@@ -188,7 +188,7 @@ namespace GrowingTree2._0
                         }
                         finally
                         {
-                            connect1.Close();
+                            connect.Close();
                         }
                     }
                 }
@@ -196,14 +196,14 @@ namespace GrowingTree2._0
                 {
                     Koshel.AddWateringCount();
                     //SelectedTree.Grow();
-                    using (SqlConnection connect1 = new SqlConnection(Constants.connectionString))
+                    using (SqlConnection connect = new SqlConnection(Constants.connectionString))
                     {
-                        SqlCommand updateTree = new SqlCommand(Constants.updateEnteredTree, connect1);
-                        SqlCommand updatePersonWateringCount = new SqlCommand(Constants.updateKoshelWateringCount, connect1);
+                        SqlCommand updateTree = new SqlCommand(Constants.updateEnteredTree, connect);
+                        SqlCommand updatePersonWateringCount = new SqlCommand(Constants.updateKoshelWateringCount, connect);
 
                         try
                         {
-                            connect1.Open();
+                            connect.Open();
                             updateTree.ExecuteNonQuery();
                             updatePersonWateringCount.ExecuteNonQuery();
                         }
@@ -213,7 +213,7 @@ namespace GrowingTree2._0
                         }
                         finally
                         {
-                            connect1.Close();
+                            connect.Close();
                         }
                     }
                 }
