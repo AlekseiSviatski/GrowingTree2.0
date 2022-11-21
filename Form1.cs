@@ -21,8 +21,8 @@ namespace GrowingTree2._0
 
         private void fMain_Load(object sender, EventArgs e)
         {
-            cbTreeNameAddToList();
-            personWateringSelect();
+            CbTreeNameAddToList();
+            PersonWateringSelect();
         }
 
         private void bAddNewTree_Click(object sender, EventArgs e)
@@ -32,7 +32,7 @@ namespace GrowingTree2._0
 
         private void cbTreeName_SelectedIndexChanged(object sender, EventArgs e)
         {
-            cbTreeNameSelect();
+            CbTreeNameSelect();
         }
 
         private void bGrow_Click(object sender, EventArgs e)
@@ -43,20 +43,20 @@ namespace GrowingTree2._0
                 if (rbSviatski.Checked)
                 {
                     SviatskiWateringTree();
-                    cbTreeNameSelect();
-                    personWateringSelect();
+                    CbTreeNameSelect();
+                    PersonWateringSelect();
                 }
                 else if (rbArtuhov.Checked)
                 {
                     ArtuhovWateringTree();
-                    cbTreeNameSelect();
-                    personWateringSelect();
+                    CbTreeNameSelect();
+                    PersonWateringSelect();
                 }
                 else if (rbKoshel.Checked)
                 {
                     KoshelWateringTree();
-                    cbTreeNameSelect();
-                    personWateringSelect();
+                    CbTreeNameSelect();
+                    PersonWateringSelect();
                 }
             }
             catch
@@ -69,7 +69,7 @@ namespace GrowingTree2._0
         private void bWateringClear_Click(object sender, EventArgs e)
         {
             ClearWateringCount();
-            personWateringSelect();
+            PersonWateringSelect();
         }
 
         // Methods
@@ -99,10 +99,10 @@ namespace GrowingTree2._0
                     }
                 }
             }
-            cbTreeNameAddToList();
+            CbTreeNameAddToList();
         }
 
-        private void cbTreeNameAddToList()
+        private void CbTreeNameAddToList()
         {
             List<string> nameList = new List<string>();
             using (SqlConnection connection = new SqlConnection(Constants.connectionString))
@@ -110,7 +110,7 @@ namespace GrowingTree2._0
                 try
                 {
                     connection.Open();
-                    SqlCommand command = new SqlCommand($@"select e.Name from EnteredTree e", connection);
+                    SqlCommand command = new SqlCommand($@"SELECT e.Name FROM EnteredTree e", connection);
                     SqlDataReader reader = command.ExecuteReader();
 
                     if (reader.HasRows)
@@ -136,7 +136,7 @@ namespace GrowingTree2._0
             }
         }
 
-        private void cbTreeNameSelect()
+        private void CbTreeNameSelect()
         {
             List<int> dataList = new List<int>();
             using (SqlConnection connection = new SqlConnection(Constants.connectionString))
@@ -144,7 +144,7 @@ namespace GrowingTree2._0
                 try
                 {
                     connection.Open();
-                    string commandText = $@"select e.Age, e.TrunkLength, e.CrownVolume from EnteredTree e where e.Name = '{cbTreeName.SelectedItem}'";
+                    string commandText = $@"SELECT e.Age, e.TrunkLength, e.CrownVolume FROM EnteredTree e WHERE e.Name = '{cbTreeName.SelectedItem}'";
                     SqlCommand command = new SqlCommand(commandText, connection);
                     SqlDataReader reader = command.ExecuteReader();
                     if (reader.HasRows)
@@ -250,7 +250,7 @@ namespace GrowingTree2._0
             }
         }
 
-        private void personWateringSelect()
+        private void PersonWateringSelect()
         {
             List<int> dataList = new List<int>();
             using (SqlConnection connection = new SqlConnection(Constants.connectionString))
@@ -258,7 +258,7 @@ namespace GrowingTree2._0
                 try
                 {
                     connection.Open();
-                    string commandText = "SELECT WateringCount FROM Persons order by IDPerson";
+                    string commandText = "SELECT WateringCount FROM Persons ORDER BY IDPerson";
                     SqlCommand command = new SqlCommand(commandText, connection);
                     SqlDataReader reader = command.ExecuteReader();
                     if (reader.HasRows)
