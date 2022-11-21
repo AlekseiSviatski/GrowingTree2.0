@@ -14,11 +14,6 @@ namespace GrowingTree2._0
     public partial class fMain : Form
     {
 
-        Person Sviatski;
-        Person Artuhov;
-        Person Koshel;
-        Tree EnteredTree;
-
         public fMain()
         {
             InitializeComponent();
@@ -69,6 +64,11 @@ namespace GrowingTree2._0
                 MessageBox.Show("Nicht Arbaiten!");
             }
 
+        }
+        private void bWateringClear_Click(object sender, EventArgs e)
+        {
+            ClearWateringCount();
+            personWateringSelect();
         }
 
         // Methods
@@ -180,7 +180,7 @@ namespace GrowingTree2._0
             {
                 string updateEnteredTree = $"UPDATE EnteredTree SET Age = Age + 1, TrunkLength = TrunkLength + 2, CrownVolume = CrownVolume + 5 WHERE EnteredTree.Name = '{cbTreeName.Text}'";
                 SqlCommand updateTree = new SqlCommand(updateEnteredTree, connect);
-                SqlCommand updatePersonWateringCount = new SqlCommand(Constants.updateSviatskiWateringCount, connect);
+                SqlCommand updatePersonWateringCount = new SqlCommand(Constants.updateArtuhovWateringCount, connect);
 
                 try
                 {
@@ -283,6 +283,29 @@ namespace GrowingTree2._0
                 dgvPersonsInfo.Rows[0].Cells[0].Value = dataList[0];
                 dgvPersonsInfo.Rows[0].Cells[1].Value = dataList[2];
                 dgvPersonsInfo.Rows[0].Cells[2].Value = dataList[1];
+            }
+        }
+
+        private void ClearWateringCount()
+        {
+            using (SqlConnection connection = new SqlConnection(Constants.connectionString))
+            {
+                try
+                {
+                    connection.Open();
+                    SqlCommand command = new SqlCommand("ClearWateringCount", connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception)
+                {
+
+                    MessageBox.Show("Error!");
+                }
+                finally
+                {
+                    connection.Close();
+                }
             }
         }
     }
