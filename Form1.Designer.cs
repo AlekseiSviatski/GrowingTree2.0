@@ -41,7 +41,6 @@ namespace GrowingTree2._0
             this.gbWaterers = new System.Windows.Forms.GroupBox();
             this.bGrow = new System.Windows.Forms.Button();
             this.gbAddNewTree = new System.Windows.Forms.GroupBox();
-            this.bRefresh = new System.Windows.Forms.Button();
             this.bAddNewTree = new System.Windows.Forms.Button();
             this.lbCrownVolume = new System.Windows.Forms.Label();
             this.lbTrunkLength = new System.Windows.Forms.Label();
@@ -52,7 +51,6 @@ namespace GrowingTree2._0
             this.tbAge = new System.Windows.Forms.TextBox();
             this.tbName = new System.Windows.Forms.TextBox();
             this.gbActions = new System.Windows.Forms.GroupBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.lbChoice = new System.Windows.Forms.Label();
             this.dgvPersonsInfo = new System.Windows.Forms.DataGridView();
             this.dgvPersonsInfoArtuhov = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -168,9 +166,9 @@ namespace GrowingTree2._0
             // 
             // bGrow
             // 
-            this.bGrow.Location = new System.Drawing.Point(6, 149);
+            this.bGrow.Location = new System.Drawing.Point(6, 176);
             this.bGrow.Name = "bGrow";
-            this.bGrow.Size = new System.Drawing.Size(313, 39);
+            this.bGrow.Size = new System.Drawing.Size(313, 46);
             this.bGrow.TabIndex = 7;
             this.bGrow.Text = "Полить дерево (+1 год)";
             this.bGrow.UseVisualStyleBackColor = true;
@@ -178,7 +176,6 @@ namespace GrowingTree2._0
             // 
             // gbAddNewTree
             // 
-            this.gbAddNewTree.Controls.Add(this.bRefresh);
             this.gbAddNewTree.Controls.Add(this.bAddNewTree);
             this.gbAddNewTree.Controls.Add(this.lbCrownVolume);
             this.gbAddNewTree.Controls.Add(this.lbTrunkLength);
@@ -195,19 +192,9 @@ namespace GrowingTree2._0
             this.gbAddNewTree.TabStop = false;
             this.gbAddNewTree.Text = "Добавление нового дерева";
             // 
-            // bRefresh
-            // 
-            this.bRefresh.Location = new System.Drawing.Point(308, 71);
-            this.bRefresh.Name = "bRefresh";
-            this.bRefresh.Size = new System.Drawing.Size(113, 46);
-            this.bRefresh.TabIndex = 9;
-            this.bRefresh.Text = "Обновить";
-            this.bRefresh.UseVisualStyleBackColor = true;
-            this.bRefresh.Click += new System.EventHandler(this.bRefresh_Click);
-            // 
             // bAddNewTree
             // 
-            this.bAddNewTree.Location = new System.Drawing.Point(308, 19);
+            this.bAddNewTree.Location = new System.Drawing.Point(314, 45);
             this.bAddNewTree.Name = "bAddNewTree";
             this.bAddNewTree.Size = new System.Drawing.Size(113, 46);
             this.bAddNewTree.TabIndex = 8;
@@ -281,7 +268,6 @@ namespace GrowingTree2._0
             // 
             // gbActions
             // 
-            this.gbActions.Controls.Add(this.button1);
             this.gbActions.Controls.Add(this.lbChoice);
             this.gbActions.Controls.Add(this.bGrow);
             this.gbActions.Controls.Add(this.gbWaterers);
@@ -291,15 +277,6 @@ namespace GrowingTree2._0
             this.gbActions.Size = new System.Drawing.Size(325, 251);
             this.gbActions.TabIndex = 10;
             this.gbActions.TabStop = false;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(6, 197);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(313, 42);
-            this.button1.TabIndex = 10;
-            this.button1.Text = "Вывести информацию о количестве поливов";
-            this.button1.UseVisualStyleBackColor = true;
             // 
             // lbChoice
             // 
@@ -396,11 +373,9 @@ namespace GrowingTree2._0
         private System.Windows.Forms.GroupBox gbActions;
         private System.Windows.Forms.Label lbChoice;
         private System.Windows.Forms.DataGridView dgvPersonsInfo;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvPersonsInfoArtuhov;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvPersonsInfoKoshel;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvPersonsInfoSviatski;
-        private System.Windows.Forms.Button bRefresh;
     }
 }
 
