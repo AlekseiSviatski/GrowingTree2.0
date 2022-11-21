@@ -33,8 +33,7 @@ namespace GrowingTree2._0
                 try
                 {
                     connection.Open();
-                    string commandText = $@"select e.Name from EnteredTree e";
-                    SqlCommand command = new SqlCommand(commandText, connection);
+                    SqlCommand command = new SqlCommand($@"select e.Name from EnteredTree e", connection);
                     SqlDataReader reader = command.ExecuteReader();
 
                     if (reader.HasRows)
@@ -75,7 +74,8 @@ namespace GrowingTree2._0
                     {
                         connect.Open();
                         addTree.ExecuteNonQuery();
-
+                        nameList.Add($"{tbName.Text}");// WORKING????
+                        cbTreeName.DataSource = nameList;
                         MessageBox.Show($"Дерево {tbName.Text} добавлено.") ;
                     }
                     catch
@@ -226,8 +226,7 @@ namespace GrowingTree2._0
                 try
                 {
                     connection.Open();
-                    string commandText = $@"select e.Name from EnteredTree e";
-                    SqlCommand command = new SqlCommand(commandText, connection);
+                    SqlCommand command = new SqlCommand($@"select e.Name from EnteredTree e", connection);
                     SqlDataReader reader = command.ExecuteReader();
 
                     if (reader.HasRows)
@@ -236,6 +235,7 @@ namespace GrowingTree2._0
                         {
                             nameList.Add(reader.GetString(0));
                         }
+                        nameList.Sort();
                     }
                 }
                 catch (Exception)
@@ -249,8 +249,6 @@ namespace GrowingTree2._0
                 }
                 cbTreeName.DataSource = nameList;
             }
-            MessageBox.Show("Нихт арбаитен");
         }
-
     }
 }
