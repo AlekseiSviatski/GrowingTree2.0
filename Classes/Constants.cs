@@ -12,7 +12,6 @@ namespace GrowingTree2._0
         public const string warning = "Предупреждение! ";
         public const string warningMessage = "Не удалось добавить информацию в базу данных! ";
         public const string fieldsWarning = "Поля информации о дереве не могут быть пустыми! ";
-        public const string updateEnteredTree = "UPDATE EnteredTree SET Age = Age + 1, TrunkLength = TrunkLength + 2, CrownVolume = CrownVolume + 5 FROM(SELECT TOP 1 ID FROM EnteredTree ORDER BY ID DESC) AS SelectedID WHERE EnteredTree.ID = SelectedID.ID";
         public const string updateArtuhovWateringCount = "UPDATE Persons SET WateringCount = WateringCount + 1 WHERE IDPerson = 1";
         public const string updateSviatskiWateringCount = "UPDATE Persons SET WateringCount = WateringCount + 1 WHERE IDPerson = 2";
         public const string updateKoshelWateringCount = "UPDATE Persons SET WateringCount = WateringCount + 1 WHERE IDPerson = 3";
