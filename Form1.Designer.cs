@@ -1,7 +1,7 @@
 ﻿
 namespace GrowingTree2._0
 {
-    partial class Form1
+    partial class fMain
     {
         /// <summary>
         /// Required designer variable.
@@ -346,19 +346,19 @@ namespace GrowingTree2._0
             this.dgvPersonsInfoSviatski.Name = "dgvPersonsInfoSviatski";
             this.dgvPersonsInfoSviatski.Width = 150;
             // 
-            // Form1
+            // fMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
-            this.ClientSize = new System.Drawing.Size(837, 271);
+            this.ClientSize = new System.Drawing.Size(833, 274);
             this.Controls.Add(this.gbActions);
             this.Controls.Add(this.gbAddNewTree);
             this.Controls.Add(this.dgvPersonsInfo);
             this.Controls.Add(this.dgvTreeInfo);
-            this.Name = "Form1";
+            this.Name = "fMain";
             this.Text = "Growing tree 2.0";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.fMain_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTreeInfo)).EndInit();
             this.gbWaterers.ResumeLayout(false);
             this.gbWaterers.PerformLayout();
