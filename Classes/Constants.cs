@@ -8,7 +8,7 @@ namespace GrowingTree2._0
 {
     class Constants
     {
-        public const string connectionString = "Data Source=.;Initial Catalog=GrowingTree;User Id=sa; Password = 12345";
+        public const string connectionString = @"Data Source=.\SQL2014;Initial Catalog=GrowingTree;User Id=sa; Password = 12345";
         public const string warning = "Предупреждение! ";
         public const string warningMessage = "Не удалось добавить информацию в базу данных! ";
         public const string fieldsWarning = "Поля информации о дереве не могут быть пустыми! ";
