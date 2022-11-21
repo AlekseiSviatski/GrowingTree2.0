@@ -67,7 +67,7 @@ namespace GrowingTree2._0
             // 
             this.cbTreeName.DisplayMember = "ID";
             this.cbTreeName.FormattingEnabled = true;
-            this.cbTreeName.Location = new System.Drawing.Point(118, 101);
+            this.cbTreeName.Location = new System.Drawing.Point(118, 109);
             this.cbTreeName.Name = "cbTreeName";
             this.cbTreeName.Size = new System.Drawing.Size(198, 21);
             this.cbTreeName.TabIndex = 1;
@@ -273,7 +273,7 @@ namespace GrowingTree2._0
             // lbChoice
             // 
             this.lbChoice.AutoSize = true;
-            this.lbChoice.Location = new System.Drawing.Point(3, 104);
+            this.lbChoice.Location = new System.Drawing.Point(6, 112);
             this.lbChoice.Name = "lbChoice";
             this.lbChoice.Size = new System.Drawing.Size(109, 13);
             this.lbChoice.TabIndex = 9;
@@ -336,6 +336,7 @@ namespace GrowingTree2._0
             this.Controls.Add(this.dgvPersonsInfo);
             this.Controls.Add(this.dgvTreeInfo);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "fMain";
             this.Text = "Growing tree 2.0";
             this.Load += new System.EventHandler(this.fMain_Load);
