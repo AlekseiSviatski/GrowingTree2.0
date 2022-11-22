@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GrowingTree2._0_ADO.NetDB.Concrete;
+using GrowingTree2._0_ADO.NetDB.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,19 +10,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DBModel = GrowingTree2._0_ADO.NetDB.Model;
 
 namespace GrowingTree2._0
 {
     public partial class fMain : Form
     {
-
         public fMain()
         {
             InitializeComponent();
         }
 
+        #region Properties and fields
+
+        DBWork dBWork;
+
+        #endregion
+
+        #region Events
+
         private void fMain_Load(object sender, EventArgs e)
         {
+            dBWork = new DBWork(Program.ConnectionString);
+
             cbTreeNameAddToList();
             personWateringSelect();
         }
@@ -72,33 +84,32 @@ namespace GrowingTree2._0
             personWateringSelect();
         }
 
-        // Methods
+        #endregion
+
+        #region Methods
+
         private void AddTree()
         {
-            if (tbName.Text == "" || tbAge.Text == "" || tbTrunkLength.Text == "" || tbCrownVolume.Text == "") MessageBox.Show(Constants.fieldsWarning, Constants.warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            if (tbName.Text == "" || tbAge.Text == "" || tbTrunkLength.Text == "" || tbCrownVolume.Text == "")
+            {
+                MessageBox.Show(Constants.fieldsWarning, Constants.warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
             else
             {
-                string procedureText = $"INSERT INTO EnteredTree(Name, Age, TrunkLength, CrownVolume) VALUES ('{tbName.Text}', {tbAge.Text}, {tbTrunkLength.Text}, {tbCrownVolume.Text})";
-                using (SqlConnection connect = new SqlConnection(Constants.connectionString))
+                EnteredTree newEnteredTree = new EnteredTree
                 {
-                    SqlCommand addTree = new SqlCommand(procedureText, connect);
+                    Name = tbName.Text,
+                    Age = Convert.ToInt32(tbAge.Text),
+                    TrunkLength = Convert.ToInt32(tbTrunkLength.Text),
+                    CrownVolume = Convert.ToInt32(tbCrownVolume.Text)
+                };
 
-                    try
-                    {
-                        connect.Open();
-                        addTree.ExecuteNonQuery();
-                        MessageBox.Show($"Дерево {tbName.Text} добавлено.");
-                    }
-                    catch
-                    {
-                        MessageBox.Show(Constants.warningMessage, Constants.warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                    finally
-                    {
-                        connect.Close();
-                    }
+                if (!dBWork.AddNewTree(newEnteredTree))
+                {
+                    MessageBox.Show(Constants.warningMessage, Constants.warning, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
+
             cbTreeNameAddToList();
         }
 
@@ -309,5 +320,7 @@ namespace GrowingTree2._0
                 }
             }
         }
+
+        #endregion
     }
 }
