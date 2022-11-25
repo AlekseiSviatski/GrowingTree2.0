@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FE778C17-7AFA-45CC-9AD0-6F662969A0FC}</ProjectGuid>
+    <ProjectGuid>{58774513-FC3C-4D8B-8B2F-3DD21CFAF0B8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GrowingTree2._0_ADO.NetDB</RootNamespace>
-    <AssemblyName>GrowingTree2.0_ADO.NetDB</AssemblyName>
+    <RootNamespace>GrowingTree2._0_Business</RootNamespace>
+    <AssemblyName>GrowingTree2.0_Business</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -41,11 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Concrete\DBWork.cs" />
+    <Compile Include="Concrete\Logic.cs" />
+    <Compile Include="Concrete\Utils.cs" />
     <Compile Include="Model\People.cs" />
-    <Compile Include="Model\EnteredTree.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

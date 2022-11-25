@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("GrowingTree2.0_ADO.NetDB")]
+[assembly: AssemblyTitle("GrowingTree2.0_Business")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("GrowingTree2.0_ADO.NetDB")]
+[assembly: AssemblyProduct("GrowingTree2.0_Business")]
 [assembly: AssemblyCopyright("Copyright ©  2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("fe778c17-7afa-45cc-9ad0-6f662969a0fc")]
+[assembly: Guid("58774513-fc3c-4d8b-8b2f-3dd21cfaf0b8")]
 
 // Version information for an assembly consists of the following four values:
 //
