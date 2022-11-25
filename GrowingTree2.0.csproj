@@ -65,9 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\Concrete\Logic.cs" />
     <Compile Include="Classes\Constants.cs" />
-    <Compile Include="Classes\Model\People.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

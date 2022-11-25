@@ -142,7 +142,7 @@ namespace GrowingTree2._0
                 {
                     connection.Close();
                 }
-                //cbTreeName.DataSource = null;
+
                 cbTreeName.DataSource = nameList;
             }
         }
